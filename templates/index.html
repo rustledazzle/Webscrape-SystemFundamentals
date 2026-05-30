@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Starlink Data Scraper | March 2026</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0f1e 0%, #0e1a2a 100%);
+            color: #eef4ff;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(18, 25, 45, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 2rem;
+            padding: 2rem;
+            box-shadow: 0 25px 45px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.05);
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            background: linear-gradient(120deg, #fff, #7aa2f7);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .sub {
+            color: #8aa2c0;
+            margin-bottom: 2rem;
+            border-left: 3px solid #3b82f6;
+            padding-left: 1rem;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        button {
+            background: #1e2a3e;
+            border: none;
+            padding: 0.75rem 1.8rem;
+            border-radius: 3rem;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.05);
+        }
+
+        .btn-primary {
+            background: #3b82f6;
+            box-shadow: 0 4px 12px rgba(59,130,246,0.3);
+        }
+        .btn-primary:hover { background: #2563eb; }
+
+        .btn-secondary {
+            background: #334155;
+        }
+        .btn-secondary:hover { background: #475569; }
+
+        .btn-success {
+            background: #10b981;
+        }
+        .btn-success:hover { background: #059669; }
+
+        .status {
+            background: #0f172a;
+            border-radius: 1rem;
+            padding: 0.75rem 1.2rem;
+            margin-bottom: 1.5rem;
+            font-family: monospace;
+            font-size: 0.9rem;
+            border-left: 4px solid #3b82f6;
+            color: #a0c4ff;
+        }
+
+        .data-container {
+            background: #0a0f1e;
+            border-radius: 1.5rem;
+            padding: 1rem;
+            overflow-x: auto;
+            margin-top: 1rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        th {
+            background: #1e2a3e;
+            padding: 12px;
+            text-align: center;
+            font-weight: 600;
+            color: #cbd5e6;
+        }
+
+        td {
+            padding: 10px;
+            text-align: center;
+            border-bottom: 1px solid #1e2a3e;
+        }
+
+        tr:hover {
+            background: #162030;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 0.6s linear infinite;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        footer {
+            margin-top: 2rem;
+            text-align: center;
+            color: #5b6e8c;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>🛰️ Starlink Daily Usage</h1>
+    <div class="sub">March 2026 — Scraped from live account</div>
+
+    <div class="button-group">
+        <button id="scrapeBtn" class="btn-primary">🚀 Run Scraper & Show Data</button>
+        <button id="viewBtn" class="btn-secondary">📊 View Data (Refresh Table)</button>
+        <button id="downloadBtn" class="btn-success">⬇️ Download CSV</button>
+    </div>
+
+    <div id="status" class="status">✅ Ready. Click "Run Scraper & Show Data" to fetch March data.</div>
+
+    <div id="dataArea" class="data-container">
+        <div style="text-align: center; padding: 2rem;">📭 No data loaded yet. Run scraper.</div>
+    </div>
+    <footer>Data extracted via Selenium + BeautifulSoup | Y‑axis auto‑scaled</footer>
+</div>
+
+<script>
+    const statusDiv = document.getElementById('status');
+    const dataArea = document.getElementById('dataArea');
+
+    function showLoading(msg) {
+        statusDiv.innerHTML = `<span class="loading"></span> ${msg}`;
+        statusDiv.style.borderLeftColor = '#3b82f6';
+    }
+
+    function showError(msg) {
+        statusDiv.innerHTML = `❌ ${msg}`;
+        statusDiv.style.borderLeftColor = '#ef4444';
+    }
+
+    function showSuccess(msg) {
+        statusDiv.innerHTML = `✅ ${msg}`;
+        statusDiv.style.borderLeftColor = '#3b82f6';
+    }
+
+    async function loadDataAndDisplay() {
+        showLoading('Loading data from CSV...');
+        try {
+            const res = await fetch('/data');
+            if (!res.ok) throw new Error('CSV not found. Run scraper first.');
+            const html = await res.text();
+            dataArea.innerHTML = html;
+            showSuccess('Data loaded successfully.');
+        } catch (err) {
+            dataArea.innerHTML = `<div style="text-align:center;padding:2rem;">⚠️ ${err.message}</div>`;
+            showError(err.message);
+        }
+    }
+
+    async function runScraper() {
+        showLoading('Scraping in progress... (may take 30–60 seconds)');
+        try {
+            const res = await fetch('/scrape');
+            const text = await res.text();
+            if (res.ok) {
+                showSuccess('Scraping completed! Now loading data...');
+                // Automatically load and display the data
+                await loadDataAndDisplay();
+            } else {
+                showError('Scraper error: ' + text);
+            }
+        } catch (err) {
+            showError('Network error: ' + err.message);
+        }
+    }
+
+    function downloadCSV() {
+        window.location.href = '/download';
+        showSuccess('Download started.');
+    }
+
+    document.getElementById('scrapeBtn').addEventListener('click', runScraper);
+    document.getElementById('viewBtn').addEventListener('click', loadDataAndDisplay);
+    document.getElementById('downloadBtn').addEventListener('click', downloadCSV);
+</script>
+</body>
+</html>
