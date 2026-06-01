@@ -1,4 +1,5 @@
 import csv
+import os
 import re
 import time
 from datetime import datetime, timedelta
@@ -11,9 +12,13 @@ from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.microsoft import EdgeChromiumDriverManager
 
 # ================= CONFIGURATION =================
-EDGE_PROFILE_PATH = r"C:\Users\ruzz\AppData\Local\Microsoft\Edge\User Data"
+# Automatically locate the default Edge profile for the current user
+EDGE_PROFILE_PATH = os.path.expanduser("~/AppData/Local/Microsoft/Edge/User Data")
 SUBSCRIPTION_URL = "https://starlink.com/account/service-line/AST-2293597-46342-54?selectedDevice=ut01000000-00000000-0060d786&page=0&limit=5"
 OUTPUT_CSV = "march_2026_daily_usage.csv"
+
+# Optional: print the resolved path to help debugging
+print(f"📁 Using Edge profile from: {EDGE_PROFILE_PATH}")
 
 # ================= SETUP =================
 options = Options()
@@ -147,5 +152,5 @@ try:
 except Exception as e:
     print(f"❌ Error: {e}")
 finally:
-    input("\nPress Enter to close browser...")
+    
     driver.quit()
