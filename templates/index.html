@@ -17,7 +17,6 @@
             color: #eef4ff;
         }
 
-        /* ===== HEADER (like Starlink) ===== */
         .app-bar {
             background: #0e1621;
             border-bottom: 1px solid #1e2a3e;
@@ -54,19 +53,14 @@
             font-weight: 500;
             transition: color 0.2s;
         }
+        .nav-links a:hover { color: white; }
 
-        .nav-links a:hover {
-            color: white;
-        }
-
-        /* ===== MAIN CONTAINER ===== */
         .main-content {
             max-width: 1400px;
             margin: 2rem auto;
             padding: 0 2rem;
         }
 
-        /* ===== CARDS (like Starlink) ===== */
         .card {
             background: rgba(18, 25, 45, 0.85);
             backdrop-filter: blur(4px);
@@ -85,14 +79,12 @@
             flex-wrap: wrap;
             gap: 1rem;
         }
-
         .card-header h3 {
             font-weight: 500;
             font-size: 1.2rem;
             color: #cbd5e6;
         }
-
-        .card-header .badge {
+        .badge {
             background: #1e2a3e;
             padding: 0.25rem 0.8rem;
             border-radius: 2rem;
@@ -104,58 +96,120 @@
             padding: 1.5rem;
         }
 
-        /* Chart container */
+        .stats-grid {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+        .stat-card {
+            background: #0f172a;
+            border-radius: 1rem;
+            padding: 1rem 1.5rem;
+            flex: 1;
+            min-width: 160px;
+            border-left: 4px solid #3b82f6;
+        }
+        .stat-label {
+            font-size: 0.8rem;
+            color: #8aa2c0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+            line-height: 1.2;
+        }
+        .stat-unit {
+            font-size: 0.9rem;
+            font-weight: normal;
+            color: #8aa2c0;
+        }
+
+        .total-banner {
+            text-align: center;
+            background: linear-gradient(135deg, #1e2a3e, #0f172a);
+            border-radius: 1.5rem;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+        .total-banner .label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #8aa2c0;
+        }
+        .total-banner .value {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff, #3b82f6);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            line-height: 1.2;
+        }
+        .total-banner .unit {
+            font-size: 1.2rem;
+            color: #8aa2c0;
+            margin-left: 0.25rem;
+        }
+
         .chart-container {
             margin-bottom: 2rem;
             padding: 0.5rem;
             background: #0a0f1e;
             border-radius: 1rem;
         }
-
         canvas {
             max-height: 300px;
             width: 100%;
         }
 
-        /* Data table */
         .data-table-wrapper {
             overflow-x: auto;
             border-radius: 1rem;
         }
-
         table {
             width: 100%;
             border-collapse: collapse;
             font-size: 0.9rem;
         }
-
-        th {
-            text-align: left;
+        th, td {
             padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid #1e2a3e;
+        }
+        th {
             background: #0f172a;
             color: #a0c4ff;
             font-weight: 500;
-            border-bottom: 1px solid #1e2a3e;
         }
-
         td {
-            padding: 0.75rem 1rem;
-            border-bottom: 1px solid #1e2a3e;
             color: #e2e8f0;
         }
-
         tr:hover td {
             background: #162030;
         }
+        tfoot td {
+            background: #0f172a;
+            border-top: 2px solid #3b82f6;
+            font-weight: bold;
+            color: white;
+        }
+        tfoot td:first-child {
+            text-align: right;
+            font-weight: 600;
+        }
 
-        /* Buttons */
         .btn-group {
             display: flex;
             gap: 1rem;
             flex-wrap: wrap;
             margin-bottom: 1rem;
         }
-
         .btn {
             background: transparent;
             border: 1px solid #334155;
@@ -167,7 +221,6 @@
             transition: all 0.2s;
             color: #cbd5e6;
         }
-
         .btn-primary {
             background: #3b82f6;
             border-color: #3b82f6;
@@ -177,7 +230,6 @@
             background: #2563eb;
             transform: translateY(-1px);
         }
-
         .btn-secondary {
             border-color: #475569;
         }
@@ -185,7 +237,6 @@
             background: #334155;
             color: white;
         }
-
         .btn-success {
             background: #10b981;
             border-color: #10b981;
@@ -195,7 +246,6 @@
             background: #059669;
         }
 
-        /* Status */
         .status {
             background: #0f172a;
             border-radius: 1rem;
@@ -206,7 +256,6 @@
             border-left: 4px solid #3b82f6;
             color: #a0c4ff;
         }
-
         .loading {
             display: inline-block;
             width: 16px;
@@ -218,7 +267,6 @@
             margin-right: 8px;
             vertical-align: middle;
         }
-
         @keyframes spin { to { transform: rotate(360deg); } }
 
         footer {
@@ -230,11 +278,9 @@
             border-top: 1px solid #1e2a3e;
         }
     </style>
-    <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>
 <body>
-
 <div class="app-bar">
     <div class="logo">🛰️ STARLINK</div>
     <div class="nav-links">
@@ -265,20 +311,42 @@
         </div>
     </div>
 
-    <!-- Chart Card -->
+    <!-- Stats + Chart Card -->
     <div class="card">
         <div class="card-header">
-            <h3>📊 Daily Data Usage (Bar Chart)</h3>
-            <div class="badge">March 2026</div>
+            <h3>📊 Residential Data (March 2026)</h3>
+            <div class="badge">Daily Usage</div>
         </div>
         <div class="card-content">
+            <div class="total-banner">
+                <div class="label">Total Usage for March 2026</div>
+                <div class="value" id="largeTotal">--</div>
+                <div class="unit">GB</div>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Total Data Usage</div>
+                    <div class="stat-value" id="totalUsage">--</div>
+                    <div class="stat-unit">GB</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Average Daily</div>
+                    <div class="stat-value" id="avgUsage">--</div>
+                    <div class="stat-unit">GB</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Days with Data</div>
+                    <div class="stat-value" id="daysCount">--</div>
+                    <div class="stat-unit">out of 31</div>
+                </div>
+            </div>
             <div class="chart-container">
                 <canvas id="usageChart"></canvas>
             </div>
         </div>
     </div>
 
-    <!-- Table Card -->
+    <!-- Table Card with TOTAL INSIDE THE TABLE (footer) -->
     <div class="card">
         <div class="card-header">
             <h3>📋 Detailed Table</h3>
@@ -297,51 +365,81 @@
 <script>
     const statusDiv = document.getElementById('status');
     const dataArea = document.getElementById('dataArea');
-    let chart = null; // global chart instance
+    let chart = null;
 
     function showLoading(msg) {
         statusDiv.innerHTML = `<span class="loading"></span> ${msg}`;
         statusDiv.style.borderLeftColor = '#3b82f6';
     }
-
     function showError(msg) {
         statusDiv.innerHTML = `❌ ${msg}`;
         statusDiv.style.borderLeftColor = '#ef4444';
     }
-
     function showSuccess(msg) {
         statusDiv.innerHTML = `✅ ${msg}`;
         statusDiv.style.borderLeftColor = '#3b82f6';
     }
 
-    // Render both chart and table from JSON data
+    function updateStats(data) {
+        if (!data.length) {
+            document.getElementById('totalUsage').innerText = '--';
+            document.getElementById('avgUsage').innerText = '--';
+            document.getElementById('daysCount').innerText = '--';
+            document.getElementById('largeTotal').innerText = '--';
+            return;
+        }
+        const total = data.reduce((sum, row) => sum + row.usage, 0);
+        const avg = total / data.length;
+        const nonZeroDays = data.filter(row => row.usage > 0).length;
+        document.getElementById('totalUsage').innerText = total.toFixed(2);
+        document.getElementById('avgUsage').innerText = avg.toFixed(2);
+        document.getElementById('daysCount').innerText = `${nonZeroDays} / ${data.length}`;
+        document.getElementById('largeTotal').innerText = total.toFixed(2);
+    }
+
     async function loadDataAndDisplay() {
         showLoading('Loading data...');
         try {
-            // Fetch JSON data
-            const jsonRes = await fetch('/data_json');
-            if (!jsonRes.ok) throw new Error('Failed to fetch data');
-            const data = await jsonRes.json();
+            const res = await fetch('/data_json');
+            if (!res.ok) throw new Error('Failed to fetch data');
+            const data = await res.json();
 
             if (data.length === 0) {
                 dataArea.innerHTML = '<div style="text-align:center;padding:2rem;">⚠️ No data found. Run scraper first.</div>';
                 if (chart) chart.destroy();
+                updateStats([]);
                 showError('No data available');
                 return;
             }
 
-            // Update table
-            let tableHtml = '<table><thead><tr><th>Date</th><th>Data Usage (GB)</th></tr></thead><tbody>';
+            // Calculate total for table footer
+            const total = data.reduce((sum, row) => sum + row.usage, 0);
+
+            // Build table with tfoot row
+            let tableHtml = `
+                <table>
+                    <thead>
+                        <tr><th>Date</th><th>Data Usage (GB)</th></tr>
+                    </thead>
+                    <tbody>
+            `;
             data.forEach(row => {
                 tableHtml += `<tr><td>${row.date}</td><td>${row.usage.toFixed(2)}</td></tr>`;
             });
-            tableHtml += '</tbody></table>';
+            tableHtml += `
+                    </tbody>
+                    <tfoot>
+                        <tr><td style="text-align: right; font-weight: bold;">TOTAL for March:</td><td style="font-weight: bold;">${total.toFixed(2)} GB</td></tr>
+                    </tfoot>
+                </table>
+            `;
             dataArea.innerHTML = tableHtml;
+
+            updateStats(data);
 
             // Update chart
             const labels = data.map(row => row.date);
             const usages = data.map(row => row.usage);
-
             if (chart) chart.destroy();
             const ctx = document.getElementById('usageChart').getContext('2d');
             chart = new Chart(ctx, {
@@ -381,6 +479,7 @@
             showSuccess('Data loaded successfully.');
         } catch (err) {
             dataArea.innerHTML = `<div style="text-align:center;padding:2rem;">⚠️ ${err.message}</div>`;
+            updateStats([]);
             showError(err.message);
         }
     }
