@@ -12,101 +12,115 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0a0f1e 0%, #0e1a2a 100%);
+            font-family: 'Segoe UI', 'Roboto', system-ui, sans-serif;
+            background-color: #0a0f1e;
             color: #eef4ff;
-            padding: 2rem;
-            min-height: 100vh;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: rgba(18, 25, 45, 0.7);
-            backdrop-filter: blur(10px);
-            border-radius: 2rem;
-            padding: 2rem;
-            box-shadow: 0 25px 45px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.05);
+        /* ===== HEADER (like Starlink) ===== */
+        .app-bar {
+            background: #0e1621;
+            border-bottom: 1px solid #1e2a3e;
+            padding: 0.75rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
-        h1 {
-            font-size: 2.2rem;
-            font-weight: 600;
-            background: linear-gradient(120deg, #fff, #7aa2f7);
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #fff, #7aa2f7);
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
-            margin-bottom: 0.5rem;
+            letter-spacing: -0.5px;
         }
 
-        .sub {
-            color: #8aa2c0;
-            margin-bottom: 2rem;
-            border-left: 3px solid #3b82f6;
-            padding-left: 1rem;
-        }
-
-        .button-group {
+        .nav-links {
             display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            margin-bottom: 2rem;
-        }
-
-        button {
-            background: #1e2a3e;
-            border: none;
-            padding: 0.75rem 1.8rem;
-            border-radius: 3rem;
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            color: white;
-            display: inline-flex;
+            gap: 2rem;
             align-items: center;
-            gap: 0.5rem;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
-        button:hover {
-            transform: translateY(-2px);
-            filter: brightness(1.05);
+        .nav-links a {
+            color: #a0b4d0;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
         }
 
-        .btn-primary {
-            background: #3b82f6;
-            box-shadow: 0 4px 12px rgba(59,130,246,0.3);
-        }
-        .btn-primary:hover { background: #2563eb; }
-
-        .btn-secondary {
-            background: #334155;
-        }
-        .btn-secondary:hover { background: #475569; }
-
-        .btn-success {
-            background: #10b981;
-        }
-        .btn-success:hover { background: #059669; }
-
-        .status {
-            background: #0f172a;
-            border-radius: 1rem;
-            padding: 0.75rem 1.2rem;
-            margin-bottom: 1.5rem;
-            font-family: monospace;
-            font-size: 0.9rem;
-            border-left: 4px solid #3b82f6;
-            color: #a0c4ff;
+        .nav-links a:hover {
+            color: white;
         }
 
-        .data-container {
-            background: #0a0f1e;
+        /* ===== MAIN CONTAINER ===== */
+        .main-content {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        /* ===== CARDS (like Starlink) ===== */
+        .card {
+            background: rgba(18, 25, 45, 0.85);
+            backdrop-filter: blur(4px);
             border-radius: 1.5rem;
-            padding: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .card-header h3 {
+            font-weight: 500;
+            font-size: 1.2rem;
+            color: #cbd5e6;
+        }
+
+        .card-header .badge {
+            background: #1e2a3e;
+            padding: 0.25rem 0.8rem;
+            border-radius: 2rem;
+            font-size: 0.8rem;
+            color: #8aa2c0;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        /* Chart container */
+        .chart-container {
+            margin-bottom: 2rem;
+            padding: 0.5rem;
+            background: #0a0f1e;
+            border-radius: 1rem;
+        }
+
+        canvas {
+            max-height: 300px;
+            width: 100%;
+        }
+
+        /* Data table */
+        .data-table-wrapper {
             overflow-x: auto;
-            margin-top: 1rem;
+            border-radius: 1rem;
         }
 
         table {
@@ -116,27 +130,87 @@
         }
 
         th {
-            background: #1e2a3e;
-            padding: 12px;
-            text-align: center;
-            font-weight: 600;
-            color: #cbd5e6;
-        }
-
-        td {
-            padding: 10px;
-            text-align: center;
+            text-align: left;
+            padding: 0.75rem 1rem;
+            background: #0f172a;
+            color: #a0c4ff;
+            font-weight: 500;
             border-bottom: 1px solid #1e2a3e;
         }
 
-        tr:hover {
+        td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid #1e2a3e;
+            color: #e2e8f0;
+        }
+
+        tr:hover td {
             background: #162030;
+        }
+
+        /* Buttons */
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .btn {
+            background: transparent;
+            border: 1px solid #334155;
+            padding: 0.6rem 1.4rem;
+            border-radius: 2rem;
+            font-weight: 500;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #cbd5e6;
+        }
+
+        .btn-primary {
+            background: #3b82f6;
+            border-color: #3b82f6;
+            color: white;
+        }
+        .btn-primary:hover {
+            background: #2563eb;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            border-color: #475569;
+        }
+        .btn-secondary:hover {
+            background: #334155;
+            color: white;
+        }
+
+        .btn-success {
+            background: #10b981;
+            border-color: #10b981;
+            color: white;
+        }
+        .btn-success:hover {
+            background: #059669;
+        }
+
+        /* Status */
+        .status {
+            background: #0f172a;
+            border-radius: 1rem;
+            padding: 0.75rem 1.2rem;
+            margin-bottom: 1.5rem;
+            font-family: monospace;
+            font-size: 0.85rem;
+            border-left: 4px solid #3b82f6;
+            color: #a0c4ff;
         }
 
         .loading {
             display: inline-block;
-            width: 18px;
-            height: 18px;
+            width: 16px;
+            height: 16px;
             border: 2px solid rgba(255,255,255,0.3);
             border-radius: 50%;
             border-top-color: white;
@@ -148,35 +222,82 @@
         @keyframes spin { to { transform: rotate(360deg); } }
 
         footer {
-            margin-top: 2rem;
             text-align: center;
+            margin-top: 2rem;
+            padding: 1rem;
+            font-size: 0.75rem;
             color: #5b6e8c;
-            font-size: 0.8rem;
+            border-top: 1px solid #1e2a3e;
         }
     </style>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>
 <body>
-<div class="container">
-    <h1>🛰️ Starlink Daily Usage</h1>
-    <div class="sub">March 2026 — Scraped from live account</div>
 
-    <div class="button-group">
-        <button id="scrapeBtn" class="btn-primary">🚀 Run Scraper & Show Data</button>
-        <button id="viewBtn" class="btn-secondary">📊 View Data (Refresh Table)</button>
-        <button id="downloadBtn" class="btn-success">⬇️ Download CSV</button>
+<div class="app-bar">
+    <div class="logo">🛰️ STARLINK</div>
+    <div class="nav-links">
+        <a href="#">Account</a>
+        <a href="#">Shop</a>
+        <a href="#">Help Center</a>
+    </div>
+</div>
+
+<div class="main-content">
+    <!-- Subscription Card -->
+    <div class="card">
+        <div class="card-header">
+            <h3>📡 Subscription</h3>
+            <div class="badge">Active · Residential</div>
+        </div>
+        <div class="card-content">
+            <div style="margin-bottom: 1.5rem;">
+                <div style="color: #8aa2c0; font-size: 0.8rem;">Service Line</div>
+                <div style="font-weight: 500;">AST-2293597-46342-54</div>
+            </div>
+            <div class="btn-group">
+                <button id="scrapeBtn" class="btn btn-primary">🚀 Run Scraper & Show Data</button>
+                <button id="viewBtn" class="btn btn-secondary">📊 Refresh Data</button>
+                <button id="downloadBtn" class="btn btn-success">⬇️ Download CSV</button>
+            </div>
+            <div id="status" class="status">✅ Ready. Click "Run Scraper & Show Data" to fetch March data.</div>
+        </div>
     </div>
 
-    <div id="status" class="status">✅ Ready. Click "Run Scraper & Show Data" to fetch March data.</div>
-
-    <div id="dataArea" class="data-container">
-        <div style="text-align: center; padding: 2rem;">📭 No data loaded yet. Run scraper.</div>
+    <!-- Chart Card -->
+    <div class="card">
+        <div class="card-header">
+            <h3>📊 Daily Data Usage (Bar Chart)</h3>
+            <div class="badge">March 2026</div>
+        </div>
+        <div class="card-content">
+            <div class="chart-container">
+                <canvas id="usageChart"></canvas>
+            </div>
+        </div>
     </div>
-    <footer>Data extracted via Selenium + BeautifulSoup | Y‑axis auto‑scaled</footer>
+
+    <!-- Table Card -->
+    <div class="card">
+        <div class="card-header">
+            <h3>📋 Detailed Table</h3>
+            <div class="badge">Date & Usage</div>
+        </div>
+        <div class="card-content">
+            <div id="dataArea" class="data-table-wrapper">
+                <div style="text-align: center; padding: 2rem;">📭 No data loaded yet. Run scraper.</div>
+            </div>
+        </div>
+    </div>
+
+    <footer>Data extracted via Selenium + BeautifulSoup | Y‑axis auto‑scaled | Starlink account credentials required</footer>
 </div>
 
 <script>
     const statusDiv = document.getElementById('status');
     const dataArea = document.getElementById('dataArea');
+    let chart = null; // global chart instance
 
     function showLoading(msg) {
         statusDiv.innerHTML = `<span class="loading"></span> ${msg}`;
@@ -193,13 +314,70 @@
         statusDiv.style.borderLeftColor = '#3b82f6';
     }
 
+    // Render both chart and table from JSON data
     async function loadDataAndDisplay() {
-        showLoading('Loading data from CSV...');
+        showLoading('Loading data...');
         try {
-            const res = await fetch('/data');
-            if (!res.ok) throw new Error('CSV not found. Run scraper first.');
-            const html = await res.text();
-            dataArea.innerHTML = html;
+            // Fetch JSON data
+            const jsonRes = await fetch('/data_json');
+            if (!jsonRes.ok) throw new Error('Failed to fetch data');
+            const data = await jsonRes.json();
+
+            if (data.length === 0) {
+                dataArea.innerHTML = '<div style="text-align:center;padding:2rem;">⚠️ No data found. Run scraper first.</div>';
+                if (chart) chart.destroy();
+                showError('No data available');
+                return;
+            }
+
+            // Update table
+            let tableHtml = '<table><thead><tr><th>Date</th><th>Data Usage (GB)</th></tr></thead><tbody>';
+            data.forEach(row => {
+                tableHtml += `<tr><td>${row.date}</td><td>${row.usage.toFixed(2)}</td></tr>`;
+            });
+            tableHtml += '</tbody></table>';
+            dataArea.innerHTML = tableHtml;
+
+            // Update chart
+            const labels = data.map(row => row.date);
+            const usages = data.map(row => row.usage);
+
+            if (chart) chart.destroy();
+            const ctx = document.getElementById('usageChart').getContext('2d');
+            chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Data Usage (GB)',
+                        data: usages,
+                        backgroundColor: '#3b82f6',
+                        borderRadius: 6,
+                        barPercentage: 0.7,
+                        categoryPercentage: 0.8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: { labels: { color: '#cbd5e6' } },
+                        tooltip: { backgroundColor: '#0f172a', titleColor: '#fff', bodyColor: '#cbd5e6' }
+                    },
+                    scales: {
+                        y: {
+                            title: { display: true, text: 'GB', color: '#8aa2c0' },
+                            grid: { color: '#1e2a3e' },
+                            ticks: { color: '#cbd5e6' }
+                        },
+                        x: {
+                            title: { display: true, text: 'Date', color: '#8aa2c0' },
+                            grid: { display: false },
+                            ticks: { color: '#cbd5e6', maxRotation: 45, autoSkip: true, maxTicksLimit: 12 }
+                        }
+                    }
+                }
+            });
             showSuccess('Data loaded successfully.');
         } catch (err) {
             dataArea.innerHTML = `<div style="text-align:center;padding:2rem;">⚠️ ${err.message}</div>`;
@@ -214,7 +392,6 @@
             const text = await res.text();
             if (res.ok) {
                 showSuccess('Scraping completed! Now loading data...');
-                // Automatically load and display the data
                 await loadDataAndDisplay();
             } else {
                 showError('Scraper error: ' + text);
