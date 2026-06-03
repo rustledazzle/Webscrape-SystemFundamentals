@@ -45,16 +45,16 @@ The CSV file march_2026_daily_usage.csv is saved in the project folder.
 
 Download the CSV
 Click the "Download CSV" button to save the file locally.
-
-starlink_scraper/
-├── app.py                         # Flask application (routes: /, /scrape, /data, /data_json, /download)
-├── scrape_march_complete.py       # Main scraping script (Selenium + BeautifulSoup)
-├── templates/
-│   └── index.html                 # Web interface (dark theme, chart, table)
-├── requirements.txt               # Python dependencies
-├── march_2026_daily_usage.csv     # Generated output (example)
-└── README.md                      # This file
-
+      
+            starlink_scraper/
+            ├── app.py                         # Flask application (routes: /, /scrape, /data, /data_json, /download)
+            ├── scrape_march_complete.py       # Main scraping script (Selenium + BeautifulSoup)
+            ├── templates/
+            │   └── index.html                 # Web interface (dark theme, chart, table)
+            ├── requirements.txt               # Python dependencies
+            ├── march_2026_daily_usage.csv     # Generated output (example)
+            └── README.md                      # This file
+         
 
 Troubleshooting
 Edge WebDriver version mismatch – Update Edge to the latest version, or download the matching EdgeDriver manually from Microsoft Edge WebDriver and place msedgedriver.exe in the project folder.
