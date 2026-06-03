@@ -56,14 +56,14 @@ Click the "Download CSV" button to save the file locally.
             └── README.md                      # This file
          
 
-Troubleshooting
+## Troubleshooting
 Edge WebDriver version mismatch – Update Edge to the latest version, or download the matching EdgeDriver manually from Microsoft Edge WebDriver and place msedgedriver.exe in the project folder.
 
 Edge profile not found – The script automatically detects your Edge profile. If it fails, open Edge, go to edge://version/, copy the Profile Path, and update the EDGE_PROFILE_PATH variable in scrape_march_complete.py.
 
 No data loaded – Make sure you are logged into Starlink in your Edge profile before running the scraper.
 
-Important Notes
+## Important Notes
 The scraper works with the Feb and Apr tabs. If your Starlink page uses different tab texts (e.g., "Feb – Mar"), adjust the click_tab() arguments in scrape_march_complete.py.
 
 The script assumes each period has exactly 30 days. If the number of bars differs, you may need to adjust the slicing (feb_mar_data[-16:], apr_data[:15]) in the main script.
