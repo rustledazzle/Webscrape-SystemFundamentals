@@ -28,8 +28,8 @@ This project scrapes daily data usage from a live Starlink account using **Micro
 Usage
 Start the Flask web interface
 In the same command prompt/terminal, run:
-py app.py
 
+         py app.py
 Open your browser and go to http://127.0.0.1:5000.
 
 Scrape the data
