@@ -3,6 +3,7 @@ import subprocess
 import pandas as pd
 import os
 import csv
+import sys
 
 app = Flask(__name__)
 CSV_FILE = "march_2026_daily_usage.csv"
@@ -13,9 +14,22 @@ def index():
 
 @app.route('/scrape')
 def scrape():
-    # Run your scraping script (make sure it's in the same folder)
-    subprocess.run(["python", "scrape_march_complete.py"])
-    return "Scraping completed!"
+    script_path = os.path.join(os.path.dirname(__file__), "scrape_march_complete.py")
+    print(f"[FLASK] Running scraper: {script_path}")
+    
+    # Use sys.executable to ensure same Python interpreter
+    result = subprocess.run(
+        [sys.executable, script_path],
+        capture_output=True,
+        text=True,
+        timeout=120
+    )
+    print("[FLASK] STDOUT:\n", result.stdout)
+    print("[FLASK] STDERR:\n", result.stderr)
+    
+    if result.returncode != 0:
+        return f"Scraping failed with code {result.returncode}. Check terminal for details."
+    return "Scraping completed! Check terminal for details."
 
 @app.route('/data')
 def data():
@@ -30,11 +44,10 @@ def data_json():
         with open(CSV_FILE, 'r') as f:
             reader = csv.DictReader(f)
             rows = list(reader)
-        # Convert to list of {date, usage}
         data = [{'date': row['Date'], 'usage': float(row['DataUsage_GB'])} for row in rows]
         return jsonify(data)
     except FileNotFoundError:
-        return jsonify([])  # empty list if CSV not yet generated
+        return jsonify([])
 
 @app.route('/download')
 def download():
