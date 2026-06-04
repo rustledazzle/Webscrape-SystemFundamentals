@@ -25,11 +25,15 @@ This project scrapes daily data usage from a live Starlink account using **Micro
    ```cmd
    pip install -r requirements.txt
 
-Usage
-Start the Flask web interface
-In the same command prompt/terminal, run:
 
-    py app.py
+## Usage
+Start the Flask web interface
+In the same command prompt, run:
+
+   ```cmd
+      py app.py
+   ```
+
 Open your browser and go to http://127.0.0.1:5000.
 
 Scrape the data
@@ -45,25 +49,50 @@ The CSV file march_2026_daily_usage.csv is saved in the project folder.
 
 Download the CSV
 Click the "Download CSV" button to save the file locally.
-      
-            starlink_scraper/
-            ├── app.py                         # Flask application (routes: /, /scrape, /data, /data_json, /download)
-            ├── scrape_march_complete.py       # Main scraping script (Selenium + BeautifulSoup)
-            ├── templates/
-            │   └── index.html                 # Web interface (dark theme, chart, table)
-            ├── requirements.txt               # Python dependencies
-            ├── march_2026_daily_usage.csv     # Generated output (example)
-            └── README.md                      # This file
-         
+
+Project Structure
+
+      cmd
+      starlink_scraper/
+      ├── app.py                         # Flask application (routes: /, /scrape, /data, /data_json, /download)
+      ├── scrape_march_complete.py       # Main scraping script (Selenium + BeautifulSoup)
+      ├── templates/
+      │   └── index.html                 # Web interface (dark theme, chart, table)
+      ├── requirements.txt               # Python dependencies
+      ├── march_2026_daily_usage.csv     # Generated output (example)
+      └── README.md                      # This file
+
 
 ## Troubleshooting
-Edge WebDriver version mismatch – Update Edge to the latest version, or download the matching EdgeDriver manually from Microsoft Edge WebDriver and place msedgedriver.exe in the project folder.
+Edge WebDriver version mismatch or download fails
+If you see an error like Could not reach host. Are you offline? or SessionNotCreatedException, the automatic driver download may be blocked by your network. Follow these steps to manually install the correct EdgeDriver:
 
-Edge profile not found – The script automatically detects your Edge profile. If it fails, open Edge, go to edge://version/, copy the Profile Path, and update the EDGE_PROFILE_PATH variable in scrape_march_complete.py.
+Find your Edge version
+Open Edge or new tab, type edge://version/ in the address bar, and note the Version number (e.g., 143.0.3650.75). The major version is the first number (e.g., 143).
 
-No data loaded – Make sure you are logged into Starlink in your Edge profile before running the scraper.
+Download the matching EdgeDriver
+Go to the official Microsoft Edge WebDriver catalog:
+https://msedgedriver.microsoft.com/catalog/index.html
 
-## Important Notes
-The scraper works with the Feb and Apr tabs. If your Starlink page uses different tab texts (e.g., "Feb – Mar"), adjust the click_tab() arguments in scrape_march_complete.py.
+On the left sidebar, select your Platform (Windows x64 for most modern laptops; check msinfo32 if unsure).
 
-The script assumes each period has exactly 30 days. If the number of bars differs, you may need to adjust the slicing (feb_mar_data[-16:], apr_data[:15]) in the main script.
+In the "Versions" list, click the folder matching your major version (e.g., 143).
+
+Download the .zip file (e.g., edgedriver_win64.zip).
+
+Place the driver in the project folder
+
+Extract the .zip file – you will get msedgedriver.exe.
+
+Copy msedgedriver.exe into the same folder as scrape_march_complete.py.
+
+Update the script to use the local driver
+Open scrape_march_complete.py and replace the line:
+
+python
+service = Service(EdgeChromiumDriverManager().install())
+with:
+
+python
+service = Service(r"msedgedriver.exe")
+Save the file. The script will now use the local driver and no longer attempt an automatic download.
