@@ -9,7 +9,6 @@ from selenium.webdriver.edge.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from webdriver_manager.microsoft import EdgeChromiumDriverManager
 
 print("[INFO] Starting Edge browser with default profile")
 
@@ -25,8 +24,9 @@ options.add_argument("--no-sandbox")
 options.add_argument("--disable-dev-shm-usage")
 options.add_experimental_option("detach", True)
 
-# Automatically download correct EdgeDriver
-service = Service(EdgeChromiumDriverManager().install())
+# Use the LOCAL EdgeDriver you downloaded and renamed
+# Make sure msedgedriver_143.exe is in the same folder as this script
+service = Service(r"msedgedriver_143.exe")
 driver = webdriver.Edge(service=service, options=options)
 
 print(f"[INFO] Browser name: {driver.capabilities.get('browserName', 'unknown')}")
@@ -36,7 +36,7 @@ print(f"[INFO] Browser version: {driver.capabilities.get('browserVersion', 'unkn
 SUBSCRIPTION_URL = "https://starlink.com/account/service-line/AST-2293597-46342-54?selectedDevice=ut01000000-00000000-0060d786&page=0&limit=5"
 OUTPUT_CSV = "march_2026_daily_usage.csv"
 
-# ================= HELPER FUNCTIONS (unchanged) =================
+# ================= HELPER FUNCTIONS =================
 def click_tab(tab_text):
     print(f"[INFO] Clicking tab: '{tab_text}'")
     try:
