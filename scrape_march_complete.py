@@ -26,7 +26,7 @@ options.add_experimental_option("detach", True)
 
 # Use the LOCAL EdgeDriver you downloaded and renamed
 # Make sure msedgedriver_143.exe is in the same folder as this script
-service = Service(r"msedgedriver_143.exe")
+service = Service(r"msedgedriver.exe")
 driver = webdriver.Edge(service=service, options=options)
 
 print(f"[INFO] Browser name: {driver.capabilities.get('browserName', 'unknown')}")
